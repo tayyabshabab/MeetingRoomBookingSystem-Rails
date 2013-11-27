@@ -1,0 +1,36 @@
+<% provide(:title, 'Sign up') %>
+<h1>New User</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation %>
+
+      <% if current_user.admin? %>
+        <%= f.label :admin, "User Type" %>
+        <span class="radio">
+          <%= f.radio_button(:admin, "false") %>
+          <%= f.label(:admin_false, "User") %>
+        </span>
+        <span class="radio">
+          <%= f.radio_button(:admin, "true") %>
+          <%= f.label(:admin_true, "Admin") %>
+        </span>
+      <% end %>
+
+      <%= f.submit "Sign Up", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

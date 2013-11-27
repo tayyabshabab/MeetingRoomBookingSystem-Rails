@@ -1,0 +1,56 @@
+<% provide(:title, 'New Booking') %>
+<%#= stylesheet_link_tag 'application', 'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css' %>
+<%#= stylesheet_link_tag 'application', 'http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css' %>
+<%#= javascript_include_tag 'application', 'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js' %>
+<%#= javascript_include_tag 'application', 'http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js' %>
+<h1>New Booking</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@booking) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.hidden_field :room_id, value: @room.id %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+
+      <%= f.label "Room No: " %>
+      <%= f.label @room.room_no %>
+
+      <br />
+
+      <%= f.label :from_time %>
+      <div class="datetimepicker" class="input-append date">
+        <%= f.text_field :from_time, as: :datetime_picker %>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphicon glyphicon-calendar"></i>
+        </span>
+      </div>
+
+      <%= f.label :to_time %>
+      <div class="datetimepicker" class="input-append date">
+        <%= f.text_field :to_time %>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphicon glyphicon-calendar"></i>
+        </span>
+      </div>
+
+      <%= f.submit "Sign Up", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<!-- <div id="datetimepicker" class="input-append date">
+  <input type="text"></input>
+  <span class="add-on">
+    <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphicon glyphicon-calendar"></i>
+  </span>
+</div> -->
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.datetimepicker').datetimepicker({
+    format: 'yyyy/MM/dd hh:mm:ss',
+    language: 'pt-BR',
+    collapse: false
+  });
+})
+</script>

@@ -1,0 +1,69 @@
+<% provide(:title, "Bookings") %>
+<h1>Meeting Room Bookings</h1>
+
+<!-- <div align="right"><%= link_to "Create New Booking", booking_new_room_path(@room), class: "btn btn-primary" %></div> -->
+
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@booking) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.hidden_field :room_id, value: @room.id %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+
+      <%= f.label "Room No: " %>
+      <%= f.label @room.room_no %>
+
+      <br />
+
+      <%= f.label :from_time %>
+      <div class="datetimepicker" class="input-append date">
+        <%= f.text_field :from_time, as: :datetime_picker %>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphicon glyphicon-calendar"></i>
+        </span>
+      </div>
+
+      <%= f.label :to_time %>
+      <div class="datetimepicker" class="input-append date">
+        <%= f.text_field :to_time %>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphicon glyphicon-calendar"></i>
+        </span>
+      </div>
+
+      <%= f.submit "Create new booking", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<!-- <div id="datetimepicker" class="input-append date">
+  <input type="text"></input>
+  <span class="add-on">
+    <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphicon glyphicon-calendar"></i>
+  </span>
+</div> -->
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.datetimepicker').datetimepicker({
+    format: 'yyyy/MM/dd hh:mm:ss',
+    language: 'pt-BR',
+    collapse: false
+  });
+})
+</script>
+
+<%= will_paginate @bookings %>
+
+<table class="table table-hover" style="margin-top: 20px;">
+  <tr>
+    <th>Room No</th>
+    <th>Building</th>
+    <th>Booking From</th>
+    <th>Booking To</th>
+    <% if current_user.admin? %>
+      <th>Options</th>
+    <% end %>
+  </tr>
+  <%= render 'shared/bookings' %>
+</table>

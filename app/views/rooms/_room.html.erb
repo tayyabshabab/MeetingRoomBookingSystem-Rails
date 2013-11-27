@@ -1,0 +1,12 @@
+<tr>
+  <td><%= link_to room.room_no, room %></td>
+  <td><%= room.building  %></td>
+  <td><%= room.address %></td>
+  <td>
+    <%= link_to "View Bookings", bookings_room_path(room) %>
+    <% if current_user.admin? %>
+       | <%= link_to "Edit", edit_room_path(room) %>
+       | <%= link_to "Delete", room, method: :delete, data: { confirm: "Are you sure?" } %>
+    <% end %>
+  </td>
+</tr>

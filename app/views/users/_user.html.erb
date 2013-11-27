@@ -1,0 +1,9 @@
+<tr>
+  <td><%= link_to user.name, user %></td>
+  <td><%= link_to user.email, user %></td>
+  <td>
+    <%= link_to "View Documents", '#' %> |
+    <%= link_to "Edit", edit_user_path(user) %> |
+    <%= link_to "Delete", user, method: :delete, data: { confirm: "Are you sure?" } %>
+  </td>
+</tr>

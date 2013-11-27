@@ -1,0 +1,11 @@
+<% @bookings.each do |booking| %>
+  <tr>
+    <td><%= link_to @room.room_no, @room %></td>
+    <td><%= @room.building  %></td>
+    <td><%= booking.from_time %></td>
+    <td><%= booking.to_time %></td>
+    <% if current_user.admin? %>
+      <td><%= link_to "Delete", booking, method: :delete, data: { confirm: "Are you sure?" } %></td>
+    <% end %>
+  </tr>
+<% end %>
