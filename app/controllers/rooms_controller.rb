@@ -47,7 +47,7 @@ class RoomsController < ApplicationController
   def bookings
     @room = Room.find(params[:id])
     @bookings = @room.bookings.paginate(page: params[:page])
-    @booking = @room.bookings.build
+    @booking = @room.bookings.build(user: current_user)
   end
 
   private

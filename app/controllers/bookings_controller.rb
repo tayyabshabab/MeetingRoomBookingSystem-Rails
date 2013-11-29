@@ -1,4 +1,6 @@
 class BookingsController < ApplicationController
+  before_action :signed_in_user
+  before_action :admin_user, only: [:destroy]
 
   def new
     @room = Room.find(params[:id])
@@ -6,15 +8,13 @@ class BookingsController < ApplicationController
   end
 
   def create
-    room_id = params[:booking][:room_id]
-    user_id = params[:booking][:user_id]
     from_time = params[:booking][:from_time]
     to_time = params[:booking][:to_time]
 
-    @room = Room.find(room_id)
+    @room = Room.find(params[:id])
     @bookings = @room.bookings.paginate(page: params[:page])
     @booking = @room.bookings.build(booking_params)
-    @booking.user_id = user_id
+    @booking.user_id = current_user.id
 
     if (!from_time.empty? && !to_time.empty?)
       find_bookings_in_between_dates = Booking.where("(:f_time > from_time AND :f_time < to_time) OR (:t_time > from_time AND :t_time < to_time)", f_time: from_time, t_time: to_time)

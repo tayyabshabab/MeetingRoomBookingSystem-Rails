@@ -6,6 +6,7 @@ RoomBookingSystem::Application.routes.draw do
     member do
       get :bookings
       get '/booking/new',        to: 'bookings#new'
+      post '/bookings/create',    to: 'bookings#create'
     end
   end
   resources :bookings
