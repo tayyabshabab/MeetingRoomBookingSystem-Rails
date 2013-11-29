@@ -18,7 +18,7 @@
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation %>
 
-      <% if current_user.admin? %>
+      <% if !current_user.nil? && current_user.admin? %>
         <%= f.label :admin, "User Type" %>
         <span class="radio">
           <%= f.radio_button(:admin, "false") %>
