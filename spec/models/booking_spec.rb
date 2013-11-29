@@ -28,4 +28,14 @@ describe Booking do
     it { should_not be_valid }
   end
 
+  describe "when from_time is not a valid time" do
+    before { @booking.from_time = "invalid_time" }
+    it { should_not be_valid }
+  end
+
+  describe "when to_time is not a valid time" do
+    before { @booking.to_time = "invalid_time" }
+    it { should_not be_valid }
+  end
+
 end
