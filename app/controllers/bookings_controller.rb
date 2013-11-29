@@ -17,9 +17,10 @@ class BookingsController < ApplicationController
     @booking.user_id = current_user.id
 
     if (!from_time.empty? && !to_time.empty?)
-      find_bookings_in_between_dates = Booking.where("(:f_time > from_time AND :f_time < to_time) OR (:t_time > from_time AND :t_time < to_time)", f_time: from_time, t_time: to_time)
-
-      if (find_bookings_in_between_dates.size > 0)
+      if (from_time.to_time.to_i > to_time.to_time.to_i)
+        flash[:warning] = "To time cannot be less than from time"
+        return render 'rooms/bookings'
+      elsif (Booking.check_if_bookings_exist from_time, to_time)
         flash[:warning] = "This room is already booked during this time!"
         render 'rooms/bookings'
       else
