@@ -18,10 +18,10 @@ class BookingsController < ApplicationController
 
     if (!from_time.empty? && !to_time.empty?)
       if (from_time.to_time.to_i > to_time.to_time.to_i)
-        flash[:warning] = "To time cannot be less than from time"
+        flash.now[:warning] = "To time cannot be less than from time"
         return render 'rooms/bookings'
       elsif (Booking.check_if_bookings_exist from_time, to_time)
-        flash[:warning] = "This room is already booked during this time!"
+        flash.now[:warning] = "This room is already booked during this time!"
         render 'rooms/bookings'
       else
         if (@booking.save)
