@@ -1,7 +1,9 @@
 <% provide(:title, "Rooms") %>
 <h1>Meeting Rooms</h1>
 
-<div align="right"><%= link_to "Create New Room", new_room_path, class: "btn btn-primary" %></div>
+<% if current_user.admin? %>
+  <div align="right"><%= link_to "Create New Room", new_room_path, class: "btn btn-primary" %></div>
+<% end %>
 
 <%= will_paginate %>
 
